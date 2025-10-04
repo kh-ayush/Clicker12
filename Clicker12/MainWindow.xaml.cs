@@ -25,7 +25,7 @@ namespace Clicker12
             {
                 IconPath = iconPath;
                 string[] m = iconPath.Split(new char[] { '\\' });
-                IconName = m[-1];
+                IconName = m.Last();
             }
         }
         public List<IconItem> IconList { get; set; }
@@ -34,8 +34,11 @@ namespace Clicker12
             InitializeComponent();
 
             IconList = new List<IconItem>();
+            LoadImages("C:\\Users\\bob2a\\Source\\Repos\\Clicker12\\Clicker12\\Monsters");
+            IconListBox.ItemsSource = IconList;
+            
+            
         }
-        
         public void LoadImages(string path)
         {
             string filter = "*.png";
