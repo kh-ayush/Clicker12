@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Text.Json.Serialization;
@@ -7,22 +8,20 @@ using System.Threading.Tasks;
 
 namespace Clicker12.Classes
 {
-    public class CEnemyTemplate
+    public class CEnemyTemplate : INotifyPropertyChanged
     {
-        [JsonInclude]
-        private string name;
-        [JsonInclude]
-        private string iconName;
-        [JsonInclude]
-        private int baseLife;
-        [JsonInclude]
-        private double lifeModifier;
-        [JsonInclude]
-        private int baseGold;
-        [JsonInclude]
-        private double goldModifier;
-        [JsonInclude]
-        private double spawnChance;
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+        string name;
+        string iconName;
+        int baseLife;
+        double lifeModifier;
+        int baseGold;
+        double goldModifier;
+        double spawnChance;
 
         public CEnemyTemplate(string name, string iconName, int baseLife, double lifeModifier, int baseGold, double goldModifier, double spawnChance) 
         {
@@ -34,13 +33,65 @@ namespace Clicker12.Classes
             this.goldModifier = goldModifier;
             this.spawnChance = spawnChance;
         }
+        public CEnemyTemplate()
+        {
+            name = "Новый монстр";
+            iconName = "";
+        }
 
-        public string Name() { return name; }
-        public string IconName() { return iconName; }
-        public int BaseLife() { return baseLife; }
-        public double LifeModidier() { return lifeModifier; }
-        public int BaseGold() { return baseGold; }
-        public double GoldModifier() { return goldModifier; }
-        public double SpawnChance() { return spawnChance; }
+        [JsonInclude]
+        public string Name
+        {
+            get => name;
+            set
+            {
+                name = value ?? throw new ArgumentNullException(nameof(value));
+                OnPropertyChanged("Name");
+            }
+        }
+        [JsonInclude]
+        public string IconName
+        {
+            get => iconName;
+            set {
+                iconName = value ?? throw new ArgumentNullException(nameof(value));
+                OnPropertyChanged("IconName");
+            }
+        }
+
+        [JsonInclude]
+        public int BaseLife
+        {
+            get => baseLife;
+            set => baseLife = value;
+        }
+
+        [JsonInclude]
+        public double LifeModifier
+        {
+            get => lifeModifier;
+            set => lifeModifier = value;
+        }
+
+        [JsonInclude]
+        public int BaseGold
+        {
+            get => baseGold;
+            set => baseGold = value;
+        }
+
+        [JsonInclude]
+        public double GoldModifier
+        {
+            get => goldModifier;
+            set => goldModifier = value;
+        }
+
+        [JsonInclude]
+        public double SpawnChance
+        {
+            get => spawnChance;
+            set => spawnChance = value;
+        }
     }
 }

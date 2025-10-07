@@ -1,4 +1,7 @@
-﻿using System.IO;
+﻿using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.IO;
+using System.Reflection;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -9,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Clicker12.Classes;
+using Microsoft.Win32;
 
 namespace Clicker12
 {
@@ -29,15 +34,26 @@ namespace Clicker12
             }
         }
         public List<IconItem> IconList { get; set; }
+        public CEnemyTemplateList EnemyList { get; set; }
         public MainWindow()
         {
             InitializeComponent();
 
             IconList = new List<IconItem>();
-            LoadImages("C:\\Users\\bob2a\\Source\\Repos\\Clicker12\\Clicker12\\Monsters");
+            EnemyList = new CEnemyTemplateList();
+
+            LoadImages("C:\\Users\\tummy\\source\\repos\\Clicker12\\Clicker12\\Monsters");
             IconListBox.ItemsSource = IconList;
             
+            EnemyList.AddEnemy(new CEnemyTemplate());
+            DataContext = EnemyList;
             
+        }
+        private void EnemyListBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (EnemyListBox.SelectedItem != null)
+            {
+            }
         }
         public void LoadImages(string path)
         {
@@ -47,6 +63,21 @@ namespace Clicker12
             {
                 IconList.Add(new IconItem(file));
             }
+        }
+        private void Add_Click(object sender, RoutedEventArgs e)
+        {
+            EnemyList.AddEnemy(new CEnemyTemplate());
+        }
+
+        private void Remove_Click(object sender, RoutedEventArgs e)
+        {
+            if (EnemyListBox.SelectedItem != null) EnemyList.DelByName((string) EnemyListBox.SelectedItem);
+        }
+
+        private void IconListBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (EnemyListBox.SelectedItem != null & IconListBox.SelectedItem != null)
+                (EnemyListBox.SelectedItem as CEnemyTemplate).IconName = (IconListBox.SelectedItem as IconItem).IconName;
         }
     }
 }

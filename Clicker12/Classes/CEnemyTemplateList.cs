@@ -1,18 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Text.Json;
-using System.IO;
 using System.Text.Json.Serialization;
+using System.Threading.Tasks;
 
 
 namespace Clicker12.Classes
 {
-    public class CEnemyTemplateList
+    public class CEnemyTemplateList : INotifyPropertyChanged
     {
-        List<CEnemyTemplate> enemies;
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+        public List<CEnemyTemplate> enemies;
         public CEnemyTemplateList()
         {
             enemies = new List<CEnemyTemplate>();
@@ -28,9 +35,8 @@ namespace Clicker12.Classes
         public CEnemyTemplate GetByName(string name) 
         {
             foreach (CEnemyTemplate x in enemies)
-                if (x.Name() == name) return x;
+                if (x.Name == name) return x;
             return null;
-            //return (CEnemyTemplate) enemies.Where(x => x.Name() == name);
         }
         public CEnemyTemplate GetById(int i) 
         {
@@ -38,7 +44,7 @@ namespace Clicker12.Classes
         }
         public void DelByName(string name)
         {
-            enemies.Remove(enemies.FirstOrDefault(x => x.Name() == name));
+            enemies.Remove(enemies.FirstOrDefault(x => x.Name == name));
         }
         public void DelById(int i)
         {
@@ -47,7 +53,7 @@ namespace Clicker12.Classes
         public List<string> GetNames() 
         {
             List<string> names = new List<string>();
-            foreach (CEnemyTemplate x in enemies) names.Add(x.Name());
+            foreach (CEnemyTemplate x in enemies) names.Add(x.Name);
             return names;
         }
         public void SaveJson() 
