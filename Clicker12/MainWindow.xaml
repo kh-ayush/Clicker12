@@ -5,12 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Clicker12"
         mc:Ignorable="d"
-    Title="MainWindow" Height="Auto" Width="800">
+    Title="MainWindow" Height="400" Width="800">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="139*"/>
-            <RowDefinition Height="257*"/>
-        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1.5*"/>
             <ColumnDefinition Width="3*"/>
@@ -19,7 +15,7 @@
 
         <StackPanel Grid.Column="0" Grid.ColumnSpan="2" Margin="0,0,369,0" Grid.RowSpan="2">
             <Label Content="List of enemies:"/>
-            <ListBox Height="350"/>
+            <ListBox Height="300"/>
             <UniformGrid Columns="2">
                 <Button Content="Save" Background="Coral"/>
                 <Button Content="Load" Background="Bisque"/>
@@ -36,7 +32,7 @@
             <UniformGrid Grid.Row="0" Columns="2">
                 <StackPanel>
                     <Label Content="Enemy icon:"/>
-                    <Image Height="180" Width="180"/>
+                    <Image Name="EnemyIcon" Height="100" Width="100" Margin="20"/>
                 </StackPanel>
                 <StackPanel>
                     <Label Content="Icon name:" Height="30"/>
@@ -74,6 +70,18 @@
             </StackPanel>
         </Grid>
 
-        <ListBox Grid.Column="2" Height="350"/>
+        <ListBox Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Name="IconListBox"
+                 SelectionMode="Single" SelectionChanged="IconListBox_OnSelectionChanged">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <UniformGrid Columns="2"/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Image Source="{Binding IconPath}" Width="100" Height="100"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
     </Grid>
 </Window>
