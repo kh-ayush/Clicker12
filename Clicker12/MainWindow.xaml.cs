@@ -51,7 +51,7 @@ namespace Clicker12
             IconList = new ObservableCollection<IconItem>();
             EnemyList = new CEnemyTemplateList();
 
-            LoadImages("C:\\Users\\tummy\\source\\repos\\Clicker12\\Clicker12\\Monsters");
+            LoadImages("C:\\Users\\bob2a\\Source\\Repos\\Clicker12\\Clicker12\\Monsters\\");
             IconListBox.ItemsSource = IconList;
             //IconComboBox.ItemsSource = IconList;
             //EnemyIcon.DataContext = IconList;
@@ -93,7 +93,20 @@ namespace Clicker12
 
             SelectedI = IconListBox.SelectedItem as IconItem;
             IconComboBox.SelectedItem = SelectedI;
-            EnemyIcon.Source = new BitmapImage(new System.Uri(GetPathByName((EnemyListBox.SelectedItem as CEnemyTemplate).IconName, IconList)));
+            //EnemyIcon.Source = new BitmapImage(new System.Uri(GetPathByName((EnemyListBox.SelectedItem as CEnemyTemplate).IconName, IconList)));
+        }
+
+        private void ButtonSave_Click(object sender, RoutedEventArgs e)
+        {
+            EnemyList.SaveJson();
+
+        }
+
+        private void ButtonLoad_Click(object sender, RoutedEventArgs e)
+        {
+            EnemyListBox.ItemsSource=null;
+            EnemyList.LoadJson();
+ 
         }
     }
 }

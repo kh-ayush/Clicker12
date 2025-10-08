@@ -17,8 +17,8 @@
             <Label Content="List of enemies:"/>
             <ListBox ItemsSource="{Binding enemies}" DisplayMemberPath="Name" Name="EnemyListBox" Height="300"/>
             <UniformGrid Columns="2">
-                <Button Height="30" Content="Save" Background="Coral"/>
-                <Button  Content="Load" Background="Bisque"/>
+                <Button Height="30" Content="Save" Background="Coral" Click="ButtonSave_Click"/>
+                <Button  Content="Load" Background="Bisque" Click="ButtonLoad_Click"/>
             </UniformGrid>
         </StackPanel>
 

@@ -4,10 +4,16 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using System.Xml;
+using System.Text.Json;
+using System.IO;
+using System.Text.Json.Serialization;
+
 
 
 namespace Clicker12.Classes
@@ -25,7 +31,7 @@ namespace Clicker12.Classes
         {
             enemies = new ObservableCollection<CEnemyTemplate>();
         }
-        public void addEnemy(string name, string iconName, int baseLife, double lifeModification, int baseGold, double goldModification, double spawnChance) 
+        public void addEnemy(string name, string iconName, int baseLife, double lifeModification, int baseGold, double goldModification, double spawnChance)
         {
             enemies.Add(new CEnemyTemplate(name, iconName, baseLife, lifeModification, baseGold, goldModification, spawnChance));
         }
@@ -33,13 +39,13 @@ namespace Clicker12.Classes
         {
             enemies.Add(x);
         }
-        public CEnemyTemplate GetByName(string name) 
+        public CEnemyTemplate GetByName(string name)
         {
             foreach (CEnemyTemplate x in enemies)
                 if (x.Name == name) return x;
             return null;
         }
-        public CEnemyTemplate GetById(int i) 
+        public CEnemyTemplate GetById(int i)
         {
             return enemies[i];
         }
@@ -51,13 +57,13 @@ namespace Clicker12.Classes
         {
             enemies.RemoveAt(i);
         }
-        public List<string> GetNames() 
+        public List<string> GetNames()
         {
             List<string> names = new List<string>();
             foreach (CEnemyTemplate x in enemies) names.Add(x.Name);
             return names;
         }
-        public void SaveJson() 
+        public void SaveJson()
         {
             string jsonString = JsonSerializer.Serialize(enemies);
             File.WriteAllText("EnemysList.json", jsonString);
@@ -67,16 +73,18 @@ namespace Clicker12.Classes
             string jsonFromFile = File.ReadAllText("EnemysList.json");
             JsonDocument doc = JsonDocument.Parse(jsonFromFile);
             foreach (JsonElement element in doc.RootElement.EnumerateArray())
-            { 
-                string name = element.GetProperty("name").GetString();
-                string iconName = element.GetProperty("iconName").GetString();
-                int baseLife = element.GetProperty("nabaseLifeme").GetInt32();
-                double lifeModification = element.GetProperty("lifeModification").GetDouble();
-                int baseGold = element.GetProperty("baseGold").GetInt32();
-                double goldModification = element.GetProperty("goldModification").GetDouble();
-                double spawnChance = element.GetProperty("spawnChance").GetDouble();
+            {
+                string name = element.GetProperty("Name").GetString();
+                string iconName = element.GetProperty("IconName").GetString();
+                int baseLife = element.GetProperty("BaseLife").GetInt32();
+                double lifeModification = element.GetProperty("LifeModifier").GetDouble();
+                int baseGold = element.GetProperty("BaseGold").GetInt32();
+                double goldModification = element.GetProperty("GoldModifier").GetDouble();
+                double spawnChance = element.GetProperty("SpawnChance").GetDouble();
                 enemies.Add(new CEnemyTemplate(name, iconName, baseLife, lifeModification, baseGold, goldModification, spawnChance));
             }
         }
     }
 }
+        
+
