@@ -34,16 +34,16 @@ namespace Clicker12
             }
             
         }
-        public string GetPathByName(string name, ObservableCollection<IconItem> ilist) 
-        {
-            foreach (IconItem x in ilist)
-                if (x.IconName == name) return x.IconPath;
-            return null;
-        }
+        //public string GetPathByName(string name, ObservableCollection<IconItem> ilist) 
+        //{
+        //    foreach (IconItem x in ilist)
+        //        if (x.IconName == name) return x.IconPath;
+        //    return null;
+        //}
         public IconItem SelectedI { get; set; }
         public ObservableCollection<IconItem> IconList { get; set; }
         public CEnemyTemplateList EnemyList { get; set; }
-        //public CEnemyTemplate SelectedE { get; set; }
+        public CEnemyTemplate SelectedE { get; set; }
         public MainWindow()
         {
             InitializeComponent();
@@ -51,12 +51,13 @@ namespace Clicker12
             IconList = new ObservableCollection<IconItem>();
             EnemyList = new CEnemyTemplateList();
 
-            LoadImages("C:\\Users\\tummy\\source\\repos\\Clicker12\\Clicker12\\Monsters");
+            LoadImages("C:\\Users\\SAPR\\Source\\Repos\\Clicker12\\Clicker12\\Monsters");
             IconListBox.ItemsSource = IconList;
-            //IconComboBox.ItemsSource = IconList;
+            IconComboBox.ItemsSource = IconList;
             //EnemyIcon.DataContext = IconList;
 
-            EnemyList.AddEnemy(new CEnemyTemplate());
+            SelectedE = new CEnemyTemplate();
+            EnemyList.AddEnemy(SelectedE);
             DataContext = EnemyList;
             
         }
@@ -64,8 +65,12 @@ namespace Clicker12
         {
             if (EnemyListBox.SelectedItem != null)
             {
-                
             }
+        }
+        private void IconListBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (EnemyListBox.SelectedItem != null & IconListBox.SelectedItem != null)
+                (EnemyListBox.SelectedItem as CEnemyTemplate).IconName = (IconListBox.SelectedItem as IconItem).IconPath;
         }
         public void LoadImages(string path)
         {
@@ -86,14 +91,6 @@ namespace Clicker12
             if (EnemyListBox.SelectedItem != null) EnemyList.DelByName((EnemyListBox.SelectedItem as CEnemyTemplate).Name);
         }
 
-        private void IconListBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (EnemyListBox.SelectedItem != null & IconListBox.SelectedItem != null)
-                (EnemyListBox.SelectedItem as CEnemyTemplate).IconName = (IconListBox.SelectedItem as IconItem).IconName;
-
-            SelectedI = IconListBox.SelectedItem as IconItem;
-            IconComboBox.SelectedItem = SelectedI;
-            EnemyIcon.Source = new BitmapImage(new System.Uri(GetPathByName((EnemyListBox.SelectedItem as CEnemyTemplate).IconName, IconList)));
-        }
+        
     }
 }

@@ -32,13 +32,12 @@
                 <StackPanel>
                     <Label Content="Enemy icon:"/>
                     <Image Name="EnemyIcon" Height="100" Width="100" Margin="20"
-                           Source="{Binding SelectedI.IconPath}"/>
+                           Source="{Binding ElementName=EnemyListBox, Path=SelectedItem.IconName}"/>
                 </StackPanel>
                 <StackPanel>
                     <Label Content="Icon name:" Height="30"/>
                     <ComboBox Height="30" Name="IconComboBox" IsEnabled="False"
-                              ItemsSource="{Binding IconList}"
-                              SelectedItem="{Binding SelectedI, Mode=TwoWay}"
+                              SelectedItem="{Binding ElementName=IconListBox, Path=SelectedItem.IconName}"
                               DisplayMemberPath="IconName"/>
                     <Label Content="Enemy Name:" Height="30"/>
                     <TextBox Text="{Binding ElementName=EnemyListBox, Path=SelectedItem.Name, Mode=TwoWay}"
