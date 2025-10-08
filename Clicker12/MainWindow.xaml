@@ -32,11 +32,14 @@
                 <StackPanel>
                     <Label Content="Enemy icon:"/>
                     <Image Name="EnemyIcon" Height="100" Width="100" Margin="20"
-                           Source="{Binding IconPath}"/>
+                           Source="{Binding SelectedI.IconPath}"/>
                 </StackPanel>
                 <StackPanel>
                     <Label Content="Icon name:" Height="30"/>
-                    <ComboBox Height="30"/>
+                    <ComboBox Height="30" Name="IconComboBox" IsEnabled="False"
+                              ItemsSource="{Binding IconList}"
+                              SelectedItem="{Binding SelectedI, Mode=TwoWay}"
+                              DisplayMemberPath="IconName"/>
                     <Label Content="Enemy Name:" Height="30"/>
                     <TextBox Text="{Binding ElementName=EnemyListBox, Path=SelectedItem.Name, Mode=TwoWay}"
                              Height="30"/>
@@ -46,23 +49,28 @@
             <UniformGrid Grid.Row="1" Columns="2">
                 <StackPanel>
                     <Label Content="Base life:"/>
-                    <TextBox Height="30"/>
+                    <TextBox Text="{Binding ElementName=EnemyListBox, Path=SelectedItem.BaseLife, Mode=TwoWay}"
+                             Height="30"/>
                 </StackPanel>
                 <StackPanel>
                     <Label Content="Base gold:"/>
-                    <TextBox Height="30"/>
+                    <TextBox Text="{Binding ElementName=EnemyListBox, Path=SelectedItem.BaseGold, Mode=TwoWay}"
+                             Height="30"/>
                 </StackPanel>
                 <StackPanel>
                     <Label Content="Life modifier:"/>
-                    <TextBox Height="30"/>
+                    <TextBox Text="{Binding ElementName=EnemyListBox, Path=SelectedItem.LifeModifier, Mode=TwoWay}"
+                             Height="30"/>
                 </StackPanel>
                 <StackPanel>
                     <Label Content="Gold modifer:"/>
-                    <TextBox Height="30"/>
+                    <TextBox Text="{Binding ElementName=EnemyListBox, Path=SelectedItem.GoldModifier, Mode=TwoWay}" 
+                             Height="30"/>
                 </StackPanel>
                 <StackPanel>
                 <Label Content="Spawn chance (1-100):"/>
-                <TextBox Height="30"/>
+                    <TextBox Text="{Binding ElementName=EnemyListBox, Path=SelectedItem.SpawnChance, Mode=TwoWay}"
+                             Height="30"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Button Name="Add" Height="30" Width="90" Content="Add" Background="Coral" Click="Add_Click"/>
@@ -73,7 +81,8 @@
 
         <ListBox Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Name="IconListBox"
                  SelectionMode="Single" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                 SelectionChanged="IconListBox_OnSelectionChanged">
+                 SelectionChanged="IconListBox_OnSelectionChanged"
+                 SelectedItem="{Binding SelectedI, Mode=TwoWay}">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel/>

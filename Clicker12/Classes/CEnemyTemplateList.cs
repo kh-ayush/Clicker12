@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
@@ -19,10 +20,10 @@ namespace Clicker12.Classes
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        public List<CEnemyTemplate> enemies;
+        public ObservableCollection<CEnemyTemplate> enemies { get; set; }
         public CEnemyTemplateList()
         {
-            enemies = new List<CEnemyTemplate>();
+            enemies = new ObservableCollection<CEnemyTemplate>();
         }
         public void addEnemy(string name, string iconName, int baseLife, double lifeModification, int baseGold, double goldModification, double spawnChance) 
         {

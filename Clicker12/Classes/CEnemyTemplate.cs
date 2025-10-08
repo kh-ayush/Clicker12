@@ -37,6 +37,11 @@ namespace Clicker12.Classes
         {
             name = "Новый монстр";
             iconName = "";
+            baseLife = 0;
+            lifeModifier = 1;
+            baseGold = 0;
+            goldModifier = 1;
+            spawnChance = 0.5;
         }
 
         [JsonInclude]
