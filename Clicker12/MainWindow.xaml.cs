@@ -91,15 +91,6 @@ namespace Clicker12
             if (EnemyListBox.SelectedItem != null) EnemyList.DelByName((EnemyListBox.SelectedItem as CEnemyTemplate).Name);
         }
 
-        private void IconListBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (EnemyListBox.SelectedItem != null & IconListBox.SelectedItem != null)
-                (EnemyListBox.SelectedItem as CEnemyTemplate).IconName = (IconListBox.SelectedItem as IconItem).IconName;
-
-            SelectedI = IconListBox.SelectedItem as IconItem;
-            IconComboBox.SelectedItem = SelectedI;
-            //EnemyIcon.Source = new BitmapImage(new System.Uri(GetPathByName((EnemyListBox.SelectedItem as CEnemyTemplate).IconName, IconList)));
-        }
 
         private void ButtonSave_Click(object sender, RoutedEventArgs e)
         {
@@ -109,7 +100,7 @@ namespace Clicker12
 
         private void ButtonLoad_Click(object sender, RoutedEventArgs e)
         {
-            EnemyListBox.ItemsSource=null;
+            EnemyList.Clear();
             EnemyList.LoadJson();
  
         }

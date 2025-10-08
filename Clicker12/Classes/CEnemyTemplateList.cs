@@ -39,6 +39,9 @@ namespace Clicker12.Classes
         {
             enemies.Add(x);
         }
+        public void Clear() {
+            enemies.Clear();
+        }
         public CEnemyTemplate GetByName(string name)
         {
             foreach (CEnemyTemplate x in enemies)
