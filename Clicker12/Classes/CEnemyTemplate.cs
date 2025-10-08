@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace Clicker12.Classes
 {
@@ -23,7 +25,7 @@ namespace Clicker12.Classes
         double goldModifier;
         double spawnChance;
 
-        public CEnemyTemplate(string name, string iconName, int baseLife, double lifeModifier, int baseGold, double goldModifier, double spawnChance) 
+        public CEnemyTemplate(string name, string iconName, int baseLife, double lifeModifier, int baseGold, double goldModifier, double spawnChance)
         {
             this.name = name;
             this.iconName = iconName;
@@ -98,5 +100,6 @@ namespace Clicker12.Classes
             get => spawnChance;
             set => spawnChance = value;
         }
+        
     }
 }
