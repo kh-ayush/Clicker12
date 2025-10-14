@@ -31,9 +31,9 @@ namespace Clicker12.Classes
         {
             enemies = new ObservableCollection<CEnemyTemplate>();
         }
-        public void addEnemy(string name, string iconName, int baseLife, double lifeModification, int baseGold, double goldModification, double spawnChance)
+        public void addEnemy(string name, string iconPath, int baseLife, double lifeModification, int baseGold, double goldModification, double spawnChance)
         {
-            enemies.Add(new CEnemyTemplate(name, iconName, baseLife, lifeModification, baseGold, goldModification, spawnChance));
+            enemies.Add(new CEnemyTemplate(name, iconPath, baseLife, lifeModification, baseGold, goldModification, spawnChance));
         }
         public void AddEnemy(CEnemyTemplate x)
         {
@@ -78,13 +78,13 @@ namespace Clicker12.Classes
             foreach (JsonElement element in doc.RootElement.EnumerateArray())
             {
                 string name = element.GetProperty("Name").GetString();
-                string iconName = element.GetProperty("IconName").GetString();
+                string iconPath = element.GetProperty("IconPath").GetString();
                 int baseLife = element.GetProperty("BaseLife").GetInt32();
                 double lifeModification = element.GetProperty("LifeModifier").GetDouble();
                 int baseGold = element.GetProperty("BaseGold").GetInt32();
                 double goldModification = element.GetProperty("GoldModifier").GetDouble();
                 double spawnChance = element.GetProperty("SpawnChance").GetDouble();
-                enemies.Add(new CEnemyTemplate(name, iconName, baseLife, lifeModification, baseGold, goldModification, spawnChance));
+                enemies.Add(new CEnemyTemplate(name, iconPath, baseLife, lifeModification, baseGold, goldModification, spawnChance));
             }
         }
     }

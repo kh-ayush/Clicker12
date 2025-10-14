@@ -32,77 +32,60 @@ namespace Clicker12
                 string[] m = iconPath.Split(new char[] { '\\' });
                 IconName = m.Last();
             }
-            
         }
-        //public string GetPathByName(string name, ObservableCollection<IconItem> ilist) 
-        //{
-        //    foreach (IconItem x in ilist)
-        //        if (x.IconName == name) return x.IconPath;
-        //    return null;
-        //}
         public IconItem SelectedI { get; set; }
         public ObservableCollection<IconItem> IconList { get; set; }
         public CEnemyTemplateList EnemyList { get; set; }
-        public CEnemyTemplate SelectedE { get; set; }
+        //public CEnemyTemplate SelectedE { get; set; }
         public MainWindow()
         {
             InitializeComponent();
+            
+            this.DataContext = this;
 
             IconList = new ObservableCollection<IconItem>();
             EnemyList = new CEnemyTemplateList();
 
-            LoadImages("C:\\Users\\SAPR\\Source\\Repos\\Clicker12\\Clicker12\\Monsters");
-            IconListBox.ItemsSource = IconList;
-            IconComboBox.ItemsSource = IconList;
-            //EnemyIcon.DataContext = IconList;
-
-            SelectedE = new CEnemyTemplate();
-            EnemyList.AddEnemy(SelectedE);
-            DataContext = EnemyList;
-            
-        }
-        private void EnemyListBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (EnemyListBox.SelectedItem != null)
+            OpenFolderDialog okno = new OpenFolderDialog();
+            if ((bool)okno.ShowDialog())
             {
+                LoadImages(okno.FolderName);
             }
+            IconListBox.ItemsSource = IconList;
+
+            //SelectedE = new CEnemyTemplate();
+            //EnemyList.AddEnemy(SelectedE);
+
+            EnemyList.AddEnemy(new CEnemyTemplate());
+            DataContext = EnemyList;
         }
         private void IconListBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (EnemyListBox.SelectedItem != null & IconListBox.SelectedItem != null)
-                (EnemyListBox.SelectedItem as CEnemyTemplate).IconName = (IconListBox.SelectedItem as IconItem).IconPath;
+                (EnemyListBox.SelectedItem as CEnemyTemplate).IconPath = (IconListBox.SelectedItem as IconItem).IconPath;
         }
         public void LoadImages(string path)
         {
             string filter = "*.png";
             string[] files = Directory.GetFiles(path, filter);
-            foreach (string file in files)
-            {
-                IconList.Add(new IconItem(file));
-            }
+            foreach (string file in files)  IconList.Add(new IconItem(file));
         }
         private void Add_Click(object sender, RoutedEventArgs e)
         {
             EnemyList.AddEnemy(new CEnemyTemplate());
         }
-
         private void Remove_Click(object sender, RoutedEventArgs e)
         {
             if (EnemyListBox.SelectedItem != null) EnemyList.DelByName((EnemyListBox.SelectedItem as CEnemyTemplate).Name);
         }
-
-
         private void ButtonSave_Click(object sender, RoutedEventArgs e)
         {
             EnemyList.SaveJson();
-
         }
-
         private void ButtonLoad_Click(object sender, RoutedEventArgs e)
         {
             EnemyList.Clear();
             EnemyList.LoadJson();
- 
         }
     }
 }

@@ -18,6 +18,7 @@ namespace Clicker12.Classes
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         string name;
+        string iconPath;
         string iconName;
         int baseLife;
         double lifeModifier;
@@ -25,10 +26,11 @@ namespace Clicker12.Classes
         double goldModifier;
         double spawnChance;
 
-        public CEnemyTemplate(string name, string iconName, int baseLife, double lifeModifier, int baseGold, double goldModifier, double spawnChance)
+        public CEnemyTemplate(string name, string iconPath, int baseLife, double lifeModifier, int baseGold, double goldModifier, double spawnChance)
         {
             this.name = name;
-            this.iconName = iconName;
+            this.iconPath = iconPath;
+            string[] m = iconPath.Split(new char[] { '\\' }); this.iconName = m.Last();
             this.baseLife = baseLife;
             this.lifeModifier = lifeModifier;
             this.baseGold = baseGold;
@@ -38,6 +40,7 @@ namespace Clicker12.Classes
         public CEnemyTemplate()
         {
             name = "Новый монстр";
+            iconPath = "";
             iconName = "";
             baseLife = 0;
             lifeModifier = 1;
@@ -57,15 +60,20 @@ namespace Clicker12.Classes
             }
         }
         [JsonInclude]
+        public string IconPath
+        {
+            get => iconPath;
+            set {
+                iconPath = value ?? throw new ArgumentNullException(nameof(value));
+                string[] m = iconPath.Split(new char[] { '\\' }); iconName = m.Last();
+                OnPropertyChanged("IconPath"); OnPropertyChanged("IconName");
+            }
+        }
+        [JsonInclude]
         public string IconName
         {
             get => iconName;
-            set {
-                iconName = value ?? throw new ArgumentNullException(nameof(value));
-                OnPropertyChanged("IconName");
-            }
         }
-
         [JsonInclude]
         public int BaseLife
         {

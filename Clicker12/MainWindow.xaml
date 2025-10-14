@@ -15,7 +15,8 @@
 
         <StackPanel Grid.Column="0" Grid.ColumnSpan="2" Margin="0,0,369,0" Grid.RowSpan="2">
             <Label Content="List of enemies:"/>
-            <ListBox ItemsSource="{Binding enemies}" DisplayMemberPath="Name" Name="EnemyListBox" Height="300"/>
+            <ListBox ItemsSource="{Binding enemies}" DisplayMemberPath="Name" 
+                     Name="EnemyListBox" Height="300"/>
             <UniformGrid Columns="2">
                 <Button Height="30" Content="Save" Background="Coral" Click="ButtonSave_Click"/>
                 <Button  Content="Load" Background="Bisque" Click="ButtonLoad_Click"/>
@@ -32,13 +33,12 @@
                 <StackPanel>
                     <Label Content="Enemy icon:"/>
                     <Image Name="EnemyIcon" Height="100" Width="100" Margin="20"
-                           Source="{Binding ElementName=EnemyListBox, Path=SelectedItem.IconName}"/>
+                           Source="{Binding ElementName=EnemyListBox, Path=SelectedItem.IconPath}"/>
                 </StackPanel>
                 <StackPanel>
                     <Label Content="Icon name:" Height="30"/>
-                    <ComboBox Height="30" Name="IconComboBox" IsEnabled="False"
-                              SelectedItem="{Binding ElementName=IconListBox, Path=SelectedItem.IconName}"
-                              DisplayMemberPath="IconName"/>
+                    <TextBox Text="{Binding ElementName=EnemyListBox, Path=SelectedItem.IconName, Mode=OneWay}"
+                             Height="30" IsEnabled="False" Background="LightGray"/>
                     <Label Content="Enemy Name:" Height="30"/>
                     <TextBox Text="{Binding ElementName=EnemyListBox, Path=SelectedItem.Name, Mode=TwoWay}"
                              Height="30"/>
@@ -71,7 +71,7 @@
                     <TextBox Text="{Binding ElementName=EnemyListBox, Path=SelectedItem.SpawnChance, Mode=TwoWay}"
                              Height="30"/>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal">
+                <StackPanel Margin="0,17,0,0" Orientation="Horizontal">
                     <Button Name="Add" Height="30" Width="90" Content="Add" Background="Coral" Click="Add_Click"/>
                     <Button Name="Remove" Height="30" Width="90" Content="Remove" Background="Bisque" Click="Remove_Click" />
                 </StackPanel>
@@ -80,8 +80,7 @@
 
         <ListBox Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Name="IconListBox"
                  SelectionMode="Single" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                 SelectionChanged="IconListBox_OnSelectionChanged"
-                 SelectedItem="{Binding SelectedI, Mode=TwoWay}">
+                 SelectionChanged="IconListBox_OnSelectionChanged">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel/>
