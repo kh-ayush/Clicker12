@@ -8,4 +8,8 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Clicker12\Clicker12.csproj" />
+  </ItemGroup>
+
 </Project>

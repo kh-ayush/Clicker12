@@ -8,8 +8,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Clicker12.Classes;
 
-namespace THE_GAME
+namespace THE_GAMEE
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -18,7 +19,7 @@ namespace THE_GAME
     {
         public MainWindow()
         {
-            InitializeComponent();
+            //InitializeComponent();
         }
     }
 }
