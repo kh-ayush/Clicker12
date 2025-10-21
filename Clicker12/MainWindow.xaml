@@ -22,11 +22,13 @@
                 <Button  Content="Load" Background="Bisque" Click="ButtonLoad_Click"/>
             </UniformGrid>
         </StackPanel>
+        
         <Grid Grid.Column="1" Grid.ColumnSpan="2" Margin="0,0,246,0" Grid.RowSpan="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
+            
             <UniformGrid Grid.Row="0" Columns="2">
                 <StackPanel>
                     <Label Content="Enemy icon:"/>
@@ -75,6 +77,7 @@
                 </StackPanel>
             </UniformGrid>
         </Grid>
+        
         <ListBox Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Name="IconListBox"
                  SelectionMode="Single" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                  SelectionChanged="IconListBox_OnSelectionChanged">
