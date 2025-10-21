@@ -10,16 +10,16 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Clicker12.Classes;
 
-namespace THE_GAMEE
+namespace THE_GAME
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow2 : Window
     {
-        public MainWindow()
+        public MainWindow2()
         {
-            //InitializeComponent();
+            InitializeComponent();
         }
     }
 }
